@@ -2,7 +2,6 @@
 > Recursive Turtles
 
 ## Table of Contents
-
 - [Workshop Navigator](#workshop-navigator)
   - [Table of Contents](#table-of-contents)
   - [Mission Statement](#mission-statement)
