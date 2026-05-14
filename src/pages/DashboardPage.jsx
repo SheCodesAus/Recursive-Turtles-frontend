@@ -41,17 +41,21 @@ function DashboardPage() {
         + Create New Event
       </button>
 
-      {loading && <p>Loading events...</p>}
+      {loading && (
+        <div className="card card-centered">
+          <div className="loading-spinner"></div>
 
+          <p className="muted">Loading your workshop sessions...</p>
+        </div>
+      )}
       {!loading && events.length === 0 && <p>No events yet</p>}
-
       {!loading && events.length > 0 && (
         <div className="events-list">
           {events.map((event) => (
             <Event
               key={event.id}
               event={event}
-             onClick={() => navigate(`/dashboard/events/${event.event_code}`)} 
+              onClick={() => navigate(`/dashboard/events/${event.event_code}`)}
             />
           ))}
         </div>
