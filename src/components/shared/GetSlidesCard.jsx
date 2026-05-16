@@ -8,20 +8,20 @@ function GetSlidesCard() {
       <h2>Get the Slides</h2>
 
       <p className="muted">
-        Access presentation slides, workshop materials and additional learning resources after the session.
+        Access presentation slides, workshop materials and additional learning resources after the event.
       </p>
 
-      <div className="session-actions-preview">
+      <div className="event-actions-preview">
 
-        <div className="session-action-chip">
+        <div className="event-action-chip">
           Presentation Slides
         </div>
 
-        <div className="session-action-chip">
+        <div className="event-action-chip">
           Workshop Resources
         </div>
 
-        <div className="session-action-chip">
+        <div className="event-action-chip">
           Follow-up Materials
         </div>
 

@@ -1,16 +1,25 @@
 import { Routes, Route } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
+<<<<<<< HEAD
 // import JoinEventPage from "./pages/JoinEventPage";
 import SessionCompletePage from "./pages/SessionCompletePage";
 import AttendeeSessionPage from "./pages/AttendeeSessionPage";
+=======
+import JoinEventPage from "./pages/JoinEventPage";
+import EventCompletePage from "./pages/EventCompletePage";
+>>>>>>> febe6ab (Standardise session terminology to event across frontend)
 import ResultsPage from "./pages/ResultsPage";
 import HomePage from "./pages/Homepage";
 import LoginPage from "./pages/LoginPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import "./App.css";
 import EventDetailsPage from "./pages/EventDetailsPage";
+<<<<<<< HEAD
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import SignupPage from "./pages/SignupPage";
+=======
+import AttendeeEventPage from "./pages/AttendeeSessionPage";
+>>>>>>> febe6ab (Standardise session terminology to event across frontend)
 
 function App() {
   return (
@@ -24,12 +33,17 @@ function App() {
       {/* CREATE EVENT */}
       <Route path="/dashboard/events/new" element={<CreateEventPage />} />
 
+<<<<<<< HEAD
       {/* SESSION */}
       {/* <Route path="/event/:eventId" element={<AttendeeSessionPage />} /> */}
       <Route path="/event/:eventCode" element={<AttendeeSessionPage />} />
+=======
+      {/* EVENT */}
+      <Route path="/event/:eventId" element={<AttendeeEventPage />} />
+>>>>>>> febe6ab (Standardise session terminology to event across frontend)
       <Route
         path="/event/:eventId/complete"
-        element={<SessionCompletePage />}
+        element={<EventCompletePage />}
       />
 
       {/* DASHBOARD */}

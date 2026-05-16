@@ -5,7 +5,7 @@ import EmailCaptureForm from "../components/email/EmailCaptureForm";
 import Footer from "../components/shared/Footer";
 import ErrorAlert from "../components/shared/ErrorAlert";
 
-function SessionCompletePage() {
+function EventCompletePage() {
   const { eventId } = useParams();
   const [error, setError] = useState("");
 
@@ -16,33 +16,20 @@ function SessionCompletePage() {
       {/* Top application header */}
       <header className="app-header">
         <div className="app-header-inner">
-
           {/* Application branding */}
-          <div className="app-logo">
-            Workshop Navigator
-          </div>
-
+          <div className="app-logo">Workshop Navigator</div>
         </div>
       </header>
 
       <main className="page">
-
-        {/* Session completion hero section */}
+        {/* Event completion hero section */}
         <section className="end-hero">
-
           {/* Success indicator */}
-          <div className="success-icon">
-            ✓
-          </div>
+          <div className="success-icon">✓</div>
 
-          <h1 className="page-title">
-            Thank you for joining!
-          </h1>
+          <h1 className="page-title">Thank you for joining!</h1>
 
-          <p className="page-subtitle">
-            We hope you found the session valuable.
-          </p>
-
+          <p className="page-subtitle">We hope you found the event valuable.</p>
         </section>
 
         {/* Collect attendee feedback */}
@@ -52,17 +39,13 @@ function SessionCompletePage() {
         <EmailCaptureForm eventId={eventId} setError={setError} />
 
         {/* Closing message */}
-        <p className="end-note">
-          Thanks again. See you in the next session.
-        </p>
-
+        <p className="end-note">Thanks again. See you in the next event.</p>
       </main>
 
       {/* Shared application footer */}
       <Footer />
-
     </>
   );
 }
 
-export default SessionCompletePage;
+export default EventCompletePage;

@@ -38,7 +38,7 @@
 
 Workshop Navigator is a mobile-first presentation and workshop engagement tool designed to improve audience interaction and data collection during live events. It is intended for professional facilitators and keynote speakers, particularly Scott Millar, who want a simple and effective way to encourage participation from Gen X and older corporate audiences.
 
-Many presentations and workshops suffer from low engagement because attendees may be shy, passive, or hesitant to ask questions in front of colleagues or managers. Workshop Navigator reduces those barriers by allowing attendees to join instantly through a QR code or direct link, participate in live polls, submit anonymous questions, and access presentation resources after the session.
+Many presentations and workshops suffer from low engagement because attendees may be shy, passive, or hesitant to ask questions in front of colleagues or managers. Workshop Navigator reduces those barriers by allowing attendees to join instantly through a QR code or direct link, participate in live polls, submit anonymous questions, and access presentation resources after the event.
 
 On the presenter side, Workshop Navigator provides a simple dashboard for reviewing audience engagement, captured questions, email interest, and event outcomes for future topic planning and client reporting.
 
@@ -74,7 +74,7 @@ Facilitators can:
 | :--- | :--- | :--- |
 | Presenter / Admin | Full access. Can log in, create and manage events, create polls, review questions, view captured emails, and export results. | Scott Millar / admin team |
 | Event Support / Approver | Can log in, assist with event management, view submitted questions and responses, and support presenter workflow. | AV support / event support |
-| Guest Participant | Can join via QR code or session link, answer live polls, ask questions with or without sharing their name, and enter an email to access presentation resources. | Public workshop / presentation attendees |
+| Guest Participant | Can join via QR code or event link, answer live polls, ask questions with or without sharing their name, and enter an email to access presentation resources. | Public workshop / presentation attendees |
 
 ---
 
@@ -97,7 +97,7 @@ Facilitators can:
 | Endpoint / Page | Functionality | Comments |
 | :--- | :--- | :--- |
 | Join Event | Join via QR code or direct link. | Primary join flow is QR code or direct link; manual event code entry may be supported as a backup option if needed. |
-| Session Home | Presents main participant actions: Live Poll, Ask a Question, and Get the Slides. | Text-first navigation for accessibility. |
+| Event Home | Presents main participant actions: Live Poll, Ask a Question, and Get the Slides. | Text-first navigation for accessibility. |
 | Ask a Question | Submit a question with a **Name (optional)** field and a toggle to share name. | Built for shy or passive audiences. |
 | Get the Slides | Enter email, choose workshop updates on/off, and access presentation library. | Presentation library acts as the free value offer. |
 | Presenter Dashboard | View event metrics, review recent questions, and export results. | Simplified dashboard for MVP. |
@@ -156,7 +156,7 @@ These users are familiar with mobile devices but often value usability, readabil
 
 The interface is designed to support people who may use reading glasses or prefer stronger contrast, larger buttons, and text-based navigation.
 
-The product is also designed for presenters such as Scott Millar, who need a streamlined way to encourage engagement, capture questions, and review session insights afterward.
+The product is also designed for presenters such as Scott Millar, who need a streamlined way to encourage engagement, capture questions, and review event insights afterward.
 
 The result is a tool that supports both participant comfort and presenter usefulness in real-time event settings.
 

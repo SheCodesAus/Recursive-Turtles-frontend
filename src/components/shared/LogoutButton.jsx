@@ -4,7 +4,7 @@ function LogoutButton() {
   const navigate = useNavigate();
 
   function handleLogout() {
-    // later: clear auth token/session here
+    // later: clear auth token/event here
     navigate("/");
   }
 

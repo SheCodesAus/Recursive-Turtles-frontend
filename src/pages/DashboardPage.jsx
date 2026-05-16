@@ -30,7 +30,7 @@ function DashboardPage() {
       <div className="dashboard-title">
         <h1>Your Events</h1>
 
-        <p>Manage your workshop sessions</p>
+        <p>Manage your workshop events</p>
       </div>
 
       {/* CREATE EVENT BUTTON */}
@@ -45,7 +45,7 @@ function DashboardPage() {
         <div className="card card-centered">
           <div className="loading-spinner"></div>
 
-          <p className="muted">Loading your workshop sessions...</p>
+          <p className="muted">Loading your workshop events...</p>
         </div>
       )}
       {!loading && events.length === 0 && <p>No events yet</p>}

@@ -335,21 +335,21 @@ body {
 }
 
 
-.session-page {
+.event-page {
   max-width: 620px;
 }
 
-.session-welcome {
+.event-welcome {
   text-align: center;
   margin-bottom: 24px;
 }
 
-.session-welcome h1 {
+.event-welcome h1 {
   font-size: 42px;
   margin-bottom: 8px;
 }
 
-.session-header-actions {
+.event-header-actions {
   display: flex;
   align-items: center;
   gap: 10px;

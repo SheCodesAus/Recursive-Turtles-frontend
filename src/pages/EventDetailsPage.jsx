@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getEventById } from "../services/events";
 import "./DashboardPage.css";
 
@@ -48,7 +48,7 @@ function EventDetailsPage() {
             </h1>
 
             <p className="dashboard-subtitle">
-              Current live workshop session
+              Current live workshop event
             </p>
           </div>
 
@@ -69,7 +69,7 @@ function EventDetailsPage() {
           <p className="event-time">
             {event?.created_at
               ? new Date(event.created_at).toLocaleString()
-              : "Workshop session"}
+              : "Workshop event"}
           </p>
         </section>
 

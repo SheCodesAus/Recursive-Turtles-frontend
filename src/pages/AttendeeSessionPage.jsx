@@ -7,16 +7,15 @@ import { getEventByCode, getEventById } from "../services/events";
 import { getEventByCode } from "../services/events";
 >>>>>>> ad39f0b (Polish dashboard and session UI pages)
 
-// Interactive attendee session components
-import LivePollCard from "../components/polls/LivePollCard";
+// Interactive attendee event components
 import QuestionForm from "../components/questions/QuestionForm";
-import GetSlidesCard from "../components/shared/GetSlidesCard";
 import Footer from "../components/shared/Footer";
 import QuestionList from "../components/questions/QuestionList";
+import GetSlidesCard from "../components/shared/GetSlidesCard";
 
 function AttendeeEventPage() {
   // Get event ID from route parameters
-    const { eventCode } = useParams();
+  const { eventCode } = useParams();
 
   // Store selected event data
   const [event, setEvent] = useState(null);
@@ -31,12 +30,10 @@ function AttendeeEventPage() {
     async function loadEvent() {
       try {
         // Fetch all available events
-        
+
         const data = await getEventByCode(eventCode);
 
         setEvent(data); // Set the fetched event data into state
-
-
       } catch (err) {
         // Log any fetch errors
         console.error(err);
@@ -92,9 +89,9 @@ function AttendeeEventPage() {
           {/* Application branding */}
           <div className="app-logo">Workshop Navigator</div>
 
-          {/* Session status and event code */}
-          <div className="session-header-actions">
-            {/* Live session indicator */}
+          {/* Event status and event code */}
+          <div className="event-header-actions">
+            {/* Live event indicator */}
             <span className="live-badge">+ Live</span>
 
             {/* Display attendee event code */}
@@ -103,22 +100,22 @@ function AttendeeEventPage() {
         </div>
       </header>
 
-      <main className="page session-page">
+      <main className="page event-page">
         {/* Welcome section for attendees */}
 
-                      <section className="session-welcome card">
-          <p className="card-label">Live Workshop Session</p>
+        <section className="event-welcome card">
+          <p className="card-label">Live Workshop Event</p>
 
           <h1>{event.title}</h1>
 
           <p className="muted">You have successfully joined the workshop.</p>
 
-          <div className="session-actions-preview">
-            <div className="session-action-chip">Ask Questions</div>
+          <div className="event-actions-preview">
+            <div className="event-action-chip">Ask Questions</div>
 
-            <div className="session-action-chip">Participate in Polls</div>
+            <div className="event-action-chip">Participate in Polls</div>
 
-            <div className="session-action-chip">Access Slides</div>
+            <div className="event-action-chip">Access Slides</div>
           </div>
         </section>
 

@@ -110,7 +110,7 @@ function JoinEventPage() {
           </h1>
 
           <p className="page-subtitle">
-            You’re about to join this live workshop session
+            You’re about to join this live workshop event
           </p>
 
         </div>
@@ -125,12 +125,12 @@ function JoinEventPage() {
           {/* Display event code */}
           <h2>{event.event_code}</h2>
 
-          {/* Navigate attendee into live session */}
+          {/* Navigate attendee into live event */}
           <button
             className="button-primary"
             onClick={() => navigate(`/event/${event.id}`)}
           >
-            Join Session
+            Join Event
           </button>
 
         </div>

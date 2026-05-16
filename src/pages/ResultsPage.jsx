@@ -30,11 +30,11 @@ function ResultsPage() {
   const pollResponseCount = 31;
   const averageRating = 4.2;
 
-  // Export session results into a downloadable CSV file
+  // Export event results into a downloadable CSV file
   function exportCSV() {
 
     // Build summary section of CSV
-    let csv = "Session Summary\n";
+    let csv = "Event Summary\n";
     csv += `Attendees,${attendeeCount}\n`;
     csv += `Poll Responses,${pollResponseCount}\n`;
     csv += `Questions,${questions.length}\n`;
@@ -62,7 +62,7 @@ function ResultsPage() {
     // Create temporary download link
     const a = document.createElement("a");
     a.href = url;
-    a.download = "session-results.csv";
+    a.download = "event-results.csv";
 
     // Trigger file download
     a.click();
@@ -93,7 +93,7 @@ function ResultsPage() {
         <div className="page-header">
 
           <h1 className="page-title">
-            Session Results
+            Event Results
           </h1>
 
           <p className="page-subtitle">
@@ -102,14 +102,14 @@ function ResultsPage() {
 
         </div>
 
-        {/* Session summary section */}
+        {/* Event summary section */}
         <section className="card">
 
           <p className="card-label">
             Summary
           </p>
 
-          <h2>Session Overview</h2>
+          <h2>Event Overview</h2>
 
           {/* Summary metric rows */}
           <div className="stack">

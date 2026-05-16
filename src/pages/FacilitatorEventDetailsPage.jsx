@@ -26,7 +26,7 @@ function FacilitatorEventDetailsPage() {
     // Mock active poll data
     {
       id: 1,
-      question: "How was the session so far?",
+      question: "How was the event so far?",
       options: [
         { label: "Great", votes: 25 },
         { label: "Good", votes: 15 },

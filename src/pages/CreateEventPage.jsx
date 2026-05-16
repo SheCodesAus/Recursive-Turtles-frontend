@@ -45,7 +45,7 @@ function CreateEventPage() {
         <div className="page-header">
           <h1 className="page-title">Create Event</h1>
           <p className="page-subtitle">
-            Set up a new workshop session
+            Set up a new workshop event
           </p>
         </div>
 

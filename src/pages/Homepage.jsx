@@ -14,9 +14,13 @@ function HomePage() {
   // React Router navigation hook
   const navigate = useNavigate();
 
+
   const [error, setError] = useState("");
 
   // Handle attendee joining a workshop session
+
+  // Handle attendee joining a workshop event
+
   function handleJoin(e) {
     e.preventDefault();
 
@@ -112,7 +116,7 @@ function HomePage() {
 
             {/* Submit join request */}
             <button className="button-primary">
-              Join Session
+              Join Event
             </button>
 
           </form>
