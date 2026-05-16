@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getEventById } from "../services/events";
 import "./DashboardPage.css";
 
@@ -33,9 +33,12 @@ function EventDetailsPage() {
   }
 
   if (!event) {
-    return <p>Event not found.</p>;
-  }
-
+  return (
+    <div className="dashboard-page">
+      <p>Event not found.</p>
+    </div>
+  );
+}
   return (
     <>
       <header className="dashboard-header">

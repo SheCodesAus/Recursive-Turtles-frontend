@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-<<<<<<< HEAD
 import ErrorAlert from "../components/shared/ErrorAlert";
-import { getEventByCode, getEventById } from "../services/events";
-=======
 import { getEventByCode } from "../services/events";
->>>>>>> ad39f0b (Polish dashboard and session UI pages)
 
 // Interactive attendee event components
 import QuestionForm from "../components/questions/QuestionForm";
