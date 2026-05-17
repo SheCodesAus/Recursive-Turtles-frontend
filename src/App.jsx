@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import "./App.css";
 import EventDetailsPage from "./pages/EventDetailsPage";
+import FacilitatorEventDetailsPage from "./pages/FacilitatorEventDetailsPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import SignupPage from "./pages/SignupPage";
 
@@ -57,6 +58,8 @@ function App() {
       />
 
       {/* EVENT DETAILS */}
+      <Route path="/dashboard/eventmon/:eventId" element={<EventDetailsPage />} />
+      <Route path="/dashboard/eventshan/:eventId" element={<FacilitatorEventDetailsPage />} />
       <Route
         path="/dashboard/events/:eventId"
         element={<EventDetailsPage />}

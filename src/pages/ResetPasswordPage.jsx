@@ -102,6 +102,7 @@ function ResetPasswordPage() {
           </form>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

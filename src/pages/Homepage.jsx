@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/shared/Footer";
 import ErrorAlert from "../components/shared/ErrorAlert";
 // import JoinEventPage from "./JoinEventPage";
 
@@ -122,7 +123,9 @@ function HomePage() {
           </form>
         </div>
       </main>
+      <Footer />
     </>
+    
   );
 }
 

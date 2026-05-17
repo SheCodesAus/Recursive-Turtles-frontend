@@ -141,6 +141,7 @@ function SignupPage() {
           </form>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

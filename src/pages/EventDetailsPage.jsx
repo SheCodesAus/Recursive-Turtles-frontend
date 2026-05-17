@@ -140,6 +140,7 @@ function EventDetailsPage() {
           </button>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

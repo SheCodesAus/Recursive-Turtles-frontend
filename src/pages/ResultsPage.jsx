@@ -226,6 +226,7 @@ function ResultsPage() {
 
         </section>
       </main>
+      <Footer />
     </>
   );
 }
