@@ -1,54 +1,93 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  getPollsByEvent,
+  submitPollResponse,
+} from "../../services/polls";
 
-function LivePollCard({ question, options }) {
-  const [isOpen, setIsOpen] = useState(false);
+function LivePollCard({ eventId }) {
+  const [polls, setPolls] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [submittedPolls, setSubmittedPolls] = useState([]);
 
-  const totalVotes = options.reduce((sum, option) => sum + option.votes, 0);
+  useEffect(() => {
+    async function loadPolls() {
+      try {
+        const data = await getPollsByEvent(eventId);
+
+        // Only show active polls
+        const activePolls = data.filter((poll) => poll.is_active);
+
+        setPolls(activePolls);
+      } catch (error) {
+        console.error("Error loading polls:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadPolls();
+  }, [eventId]);
+
+  async function handleVote(pollId, option) {
+    try {
+      await submitPollResponse(pollId, {
+        selected_option: option,
+      });
+
+      setSubmittedPolls([...submittedPolls, pollId]);
+    } catch (error) {
+      console.error("Error submitting vote:", error);
+    }
+  }
+
+  if (loading) {
+    return (
+      <section className="card">
+        <p>Loading live polls...</p>
+      </section>
+    );
+  }
+
+  if (polls.length === 0) {
+    return (
+      <section className="card">
+        <h2>Live Polls</h2>
+
+        <p className="muted">No active polls right now.</p>
+      </section>
+    );
+  }
 
   return (
-    <article className="live-poll-card">
-      <button
-        className="live-poll-summary"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <div className="poll-icon">▥</div>
+    <>
+      {polls.map((poll) => (
+        <section className="card" key={poll.id}>
+          <div className="section-header">
+            <div>
+              <h2>Live Poll</h2>
 
-        <div className="poll-info">
-          <h3>{question}</h3>
-          <p>{options.length} options · {totalVotes} responses</p>
-        </div>
+              <p>{poll.question}</p>
+            </div>
+          </div>
 
-        <span className="active-badge">Active</span>
-        <span className={`poll-arrow ${isOpen ? "open" : ""}`}>›</span>
-      </button>
-
-      {isOpen && (
-        <div className="poll-results">
-          {options.map((option) => {
-            const percent =
-              totalVotes === 0 ? 0 : Math.round((option.votes / totalVotes) * 100);
-
-            return (
-              <div className="poll-result-row" key={option.label}>
-                <div className="poll-result-label">
-                  <span>{option.label}</span>
-                  <span>{percent}%</span>
-                </div>
-
-                <div className="poll-result-bar">
-                  <div
-                    className="poll-result-fill"
-                    style={{ width: `${percent}%` }}
-                  />
-                </div>
-
-                <small>{option.votes} votes</small>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </article>
+          {submittedPolls.includes(poll.id) ? (
+            <p className="muted">Your response has been submitted.</p>
+          ) : (
+            <div className="poll-options">
+              {poll.options?.map((option, index) => (
+                <button
+                  key={index}
+                  className="poll-option-button"
+                  onClick={() => handleVote(poll.id, option)}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          )}
+        </section>
+      ))}
+    </>
   );
 }
 

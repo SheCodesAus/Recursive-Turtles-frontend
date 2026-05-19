@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Event from "../components/shared/Event";
 import "./DashboardPage.css";
-import { getEventsPerFacilitator } from "../services/events";
+import { getEvents } from "../services/events";
 
 function DashboardPage() {
   const [events, setEvents] = useState([]);
@@ -13,7 +13,7 @@ function DashboardPage() {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const data = await getEventsPerFacilitator();
+        const data = await getEvents();
         setEvents(data);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -29,7 +29,6 @@ function DashboardPage() {
     <div className="dashboard-container">
       <div className="dashboard-title">
         <h1>Manage your Events</h1>
-        
       </div>
 
       {/* CREATE EVENT BUTTON */}
@@ -55,7 +54,7 @@ function DashboardPage() {
             <Event
               key={event.id}
               event={event}
-              onClick={() => navigate(`/dashboard/events/${event.event_code}`)}
+              onClick={() => navigate(`/dashboard/events/${event.id}`)}
             />
           ))}
         </div>
