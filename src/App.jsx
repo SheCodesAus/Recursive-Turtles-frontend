@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 import JoinEventPage from "./pages/JoinEventPage";
 import EventCompletePage from "./pages/EventCompletePage";
-import AttendeeEventPage from "./pages/AttendeeSessionPage";
+import AttendeeSessionPage from "./pages/AttendeeSessionPage";
 import ResultsPage from "./pages/ResultsPage";
 import HomePage from "./pages/Homepage";
 import LoginPage from "./pages/LoginPage";
@@ -17,6 +17,7 @@ import ResetPasswordConfirmPage from "./pages/ResetPasswordConfirmPage";
 function App() {
   return (
     <Routes>
+
       <Route path="/" element={<HomePage />} />
 
       <Route path="/login" element={<LoginPage />} />
@@ -28,7 +29,6 @@ function App() {
         path="/reset-password"
         element={<ResetPasswordPage />}
       />
-
       {/* RESET PASSWORD CONFIRM */}
       <Route
         path="/reset-password-confirm"
@@ -50,7 +50,7 @@ function App() {
       {/* ATTENDEE EVENT */}
       <Route
         path="/event/:eventCode"
-        element={<AttendeeEventPage />}
+        element={<AttendeeSessionPage />}
       />
 
       {/* EVENT COMPLETE */}
@@ -78,6 +78,7 @@ function App() {
         path="/results/:eventId"
         element={<ResultsPage />}
       />
+
     </Routes>
   );
 }
