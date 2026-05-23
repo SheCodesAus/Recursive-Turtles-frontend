@@ -11,7 +11,6 @@ import EmailCaptureForm from "../components/email/EmailCaptureForm";
 import Footer from "../components/shared/Footer";
 import QuestionList from "../components/questions/QuestionList";
 import GetSlidesCard from "../components/shared/GetSlidesCard";
-
 function AttendeeEventPage() {
   // Get event ID from route parameters
   const { eventCode } = useParams();
@@ -110,16 +109,14 @@ function AttendeeEventPage() {
           <p className="muted">You have successfully joined the workshop.</p>
 
           <div className="event-actions-preview">
-            <div className="event-action-chip">Ask Questions</div>
-
-            <div className="event-action-chip">Participate in Polls</div>
-
-            <div className="event-action-chip">Access Slides</div>
+            <span>Ask Questions</span>
+            <span>Polls</span>
+            <span>Slides</span>
           </div>
         </section>
 
         {/* Live polling component */}
-        {/* <LivePollCard /> */}
+        <LivePollCard eventId={event.id} />
 
         {/* Question submission form */}
         <QuestionForm setError={setError} />

@@ -1,80 +1,23 @@
 import { apiRequest } from "./api";
 
-export async function getEventById(eventID) {
-  const response = await fetch  (`${import.meta.env.VITE_API_URL}/event/${eventID}/`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch event");
-  }
-
-  return response.json();
+// Get all events
+export function getEvents() {
+  return apiRequest("/events/");
 }
 
-export async function getEventByCode(eventCode) {
-  const response = await fetch  (`${import.meta.env.VITE_API_URL}/events/join/${eventCode}/`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch event");
-  }
-
-  return response.json();
+// Get event by numeric ID
+export function getEventById(eventId) {
+  return apiRequest(`/events/${eventId}/`);
 }
 
-export async function loginFacilitator(credentials) {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/login/`, {
+// Get event by event code
+export function getEventByCode(eventCode) {
+  return apiRequest(`/events/join/${eventCode}/`);
+}
+// Create event
+export function createEvent(data) {
+  return apiRequest("/events/", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
-
-  if (!response.ok) {
-    throw new Error("Login failed");
-  }
-
-  return response.json();
-}
-
-export async function postCreateEvent(data) {
-  const accessToken = window.localStorage.getItem("access");
-
-  if (!accessToken) {
-    throw new Error("No access token found. Please log in.");
-  }
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/events/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${accessToken}`,
-    },
     body: JSON.stringify(data),
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to create event");
-  }
-
-  return response.json();
-}
-
-export async function getEventsPerFacilitator() {
-  const accessToken = window.localStorage.getItem("access");
-
-  if (!accessToken) {
-    throw new Error("No access token found. Please log in.");
-  }
-
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/events/`, {
-    method: "GET",
-    headers: {
-      "Authorization": `Bearer ${accessToken}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch events");
-  }
-
-  return response.json();
 }

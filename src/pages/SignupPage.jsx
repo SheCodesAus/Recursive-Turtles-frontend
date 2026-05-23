@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorAlert from "../components/shared/ErrorAlert";
-import { signupFacilitator } from "../services/auth";
 import Footer from "../components/shared/Footer";
+import { signupFacilitator } from "../services/auth";
 
 function SignupPage() {
-
   // React Router navigation hook
   const navigate = useNavigate();
 
@@ -15,12 +14,11 @@ function SignupPage() {
     email: "",
     password: "",
   });
-  
+
   const [error, setError] = useState("");
 
   // Handle updates to form input fields
   function handleChange(e) {
-
     // Update matching form field dynamically
     setFormData({
       ...formData,
@@ -33,11 +31,7 @@ function SignupPage() {
     e.preventDefault();
 
     // Prevent incomplete form submission
-    if (
-      !formData.username ||
-      !formData.email ||
-      !formData.password
-    ) {
+    if (!formData.username || !formData.email || !formData.password) {
       setError("Please complete all required fields.");
       return;
     }
@@ -49,60 +43,55 @@ function SignupPage() {
         password: formData.password,
       });
 
-    window.localStorage.setItem("access", data.access);
-    window.localStorage.setItem("refresh", data.refresh);
+      window.localStorage.setItem("access", data.access);
+      window.localStorage.setItem("refresh", data.refresh);
 
-    navigate("/dashboard");
-  } catch (err) {
-    console.error(err);
-    setError("We couldn't create your account. Please try again.");
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(err);
+      setError("We couldn't create your account. Please try again.");
+    }
   }
-}
 
   return (
     <>
       <ErrorAlert message={error} onClose={() => setError("")} />
-        
+
       {/* Top application header */}
       <header className="app-header">
         <div className="app-header-inner">
+          <div className="app-logo">Workshop Navigator</div>
 
-          {/* Application branding */}
-          <div className="app-logo">
-            Workshop Navigator
+          <div className="header-actions">
+            <button
+              className="secondary-button"
+              onClick={() => navigate("/login")}
+            >
+              Facilitator Login
+            </button>
+
+            <button className="button-primary" onClick={() => navigate("/")}>
+              Join Workshop
+            </button>
           </div>
-
         </div>
       </header>
-
       <main className="page">
-
         {/* Page introduction */}
         <div className="page-header">
-
-          <h1 className="page-title">
-            Create Facilitator Account
-          </h1>
+          <h1 className="page-title">Create Facilitator Account</h1>
 
           <p className="page-subtitle">
             Sign up to create and manage workshop events.
           </p>
-
         </div>
 
         {/* Signup form card */}
         <section className="card">
-
-          <form
-            className="stack"
-            onSubmit={handleSubmit}
-          >
-
+          <form className="stack" onSubmit={handleSubmit}>
             {/* Username input field */}
             <label className="form-label">
-
               Username
-
               <input
                 className="input"
                 name="username"
@@ -110,14 +99,11 @@ function SignupPage() {
                 onChange={handleChange}
                 placeholder="Enter a username"
               />
-
             </label>
 
             {/* Email input field */}
             <label className="form-label">
-
               Email
-
               <input
                 className="input"
                 name="email"
@@ -126,14 +112,11 @@ function SignupPage() {
                 onChange={handleChange}
                 placeholder="Enter your email"
               />
-
             </label>
 
             {/* Password input field */}
             <label className="form-label">
-
               Password
-
               <input
                 className="input"
                 name="password"
@@ -142,17 +125,12 @@ function SignupPage() {
                 onChange={handleChange}
                 placeholder="Enter your password"
               />
-
             </label>
 
             {/* Submit facilitator account creation */}
-            <button
-              className="button-primary"
-              type="submit"
-            >
+            <button className="button-primary" type="submit">
               Create Facilitator Account
             </button>
-
           </form>
         </section>
       </main>

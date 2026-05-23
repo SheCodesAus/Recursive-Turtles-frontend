@@ -4,7 +4,6 @@ import { getEventByCode } from "../services/events";
 import Footer from "../components/shared/Footer";
 
 function JoinEventPage() {
-
   // Get event code from URL parameters
   const { eventCode } = useParams();
 
@@ -22,30 +21,23 @@ function JoinEventPage() {
 
   // Load event using the code from the URL
   useEffect(() => {
-
     async function loadEvent() {
       try {
-
         // Fetch event details from backend/API
         const data = await getEventByCode(eventCode);
 
         // Save event data into state
         setEvent(data);
-
       } catch (err) {
-
         // Show user-friendly error if event lookup fails
         setError("Event not found. Please check your code.");
-
       } finally {
-
         // Stop loading screen
         setIsLoading(false);
       }
     }
 
     loadEvent();
-
   }, [eventCode]);
 
   // Display loading screen while event is being fetched
@@ -53,16 +45,12 @@ function JoinEventPage() {
     return (
       <main className="loading-screen">
         <div className="card loading-card">
-
           {/* Animated loading spinner */}
           <div className="loading-spinner"></div>
 
           <h2>Loading event...</h2>
 
-          <p className="muted">
-            Getting your workshop ready
-          </p>
-
+          <p className="muted">Getting your workshop ready</p>
         </div>
       </main>
     );
@@ -73,13 +61,9 @@ function JoinEventPage() {
     return (
       <main className="page">
         <div className="card">
+            <h2>Event not found</h2>
 
-          <h2>Event not found</h2>
-
-          <p className="muted">
-            {error}
-          </p>
-
+          <p className="muted">{error}</p>
         </div>
       </main>
     );
@@ -90,37 +74,25 @@ function JoinEventPage() {
       {/* Top application header */}
       <header className="app-header">
         <div className="app-header-inner">
-
           {/* Application branding */}
-          <div className="app-logo">
-            Workshop Navigator
-          </div>
-
+          <div className="app-logo">Workshop Navigator</div>
         </div>
       </header>
 
       <main className="page">
-
         {/* Event join introduction */}
         <div className="page-header">
-
           {/* Display selected event title */}
-          <h1 className="page-title">
-            {event.title}
-          </h1>
+          <h1 className="page-title">{event.title}</h1>
 
           <p className="page-subtitle">
             You’re about to join this live workshop event
           </p>
-
         </div>
 
         {/* Event confirmation card */}
         <div className="card card-centered">
-
-          <p className="muted">
-            Event Code
-          </p>
+          <p className="muted">Event Code</p>
 
           {/* Display event code */}
           <h2>{event.event_code}</h2>
@@ -132,13 +104,11 @@ function JoinEventPage() {
           >
             Join Event
           </button>
-
         </div>
       </main>
 
       {/* Shared application footer */}
       <Footer />
-
     </>
   );
 }

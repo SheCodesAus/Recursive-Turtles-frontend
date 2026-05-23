@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { postCreateEvent } from "../services/events";
 import { useNavigate } from "react-router-dom";
+import { createEvent } from "../services/events";
 import { QRCodeCanvas } from "qrcode.react";
 import Footer from "../components/shared/Footer";
 
 function CreateEventPage() {
   const navigate = useNavigate();
-  const [err,setErr] = useState("");
 
+  const [err, setErr] = useState("");
   const [title, setTitle] = useState("");
   const [createdEvent, setCreatedEvent] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,17 +23,17 @@ function CreateEventPage() {
     try {
       setIsLoading(true);
 
-      const response = await postCreateEvent({ title });
+      const response = await createEvent({ title });
+
       setCreatedEvent(response);
       setTitle("");
       setErr("");
     } catch (err) {
       console.error(err);
       setErr("We couldn't create the event. Please try again.");
-    } finally {      
+    } finally {
       setIsLoading(false);
     }
-
   };
 
   return (
@@ -47,29 +47,53 @@ function CreateEventPage() {
       <main className="page">
         <div className="page-header">
           <h1 className="page-title">Create Event</h1>
-          <p className="page-subtitle">Set up a new workshop event</p>
+
+          <p className="page-subtitle">
+            Set up a new workshop event
+          </p>
         </div>
 
         {!createdEvent && (
           <section className="card">
             <h2>Event Details</h2>
 
-          <form onSubmit={handleSubmit}>
-            {err && <p className="error-message">{err}</p>}
-            <label className="form-label">Event Title</label>
+            <form onSubmit={handleSubmit}>
+              {err && (
+                <p className="error-message">
+                  {err}
+                </p>
+              )}
+
+              <label className="form-label">
+                Event Title
+              </label>
 
               <input
                 className="input"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) =>
+                  setTitle(e.target.value)
+                }
                 placeholder="e.g. Gen Z Leadership Workshop"
               />
 
-              <button className="button-primary" type="submit">
-                {isLoading ? "Creating..." : "Create Event"}
+              <button
+                className="button-primary"
+                type="submit"
+                disabled={isLoading}
+              >
+                {isLoading
+                  ? "Creating..."
+                  : "Create Event"}
               </button>
 
-              <button className="secondary-button" type="button" onClick={() => navigate("/dashboard")}>
+              <button
+                className="secondary-button"
+                type="button"
+                onClick={() =>
+                  navigate("/dashboard")
+                }
+              >
                 Back to Dashboard
               </button>
             </form>
@@ -78,17 +102,33 @@ function CreateEventPage() {
 
         {createdEvent && (
           <section className="card card-centered">
-            <button className="secondary-button" onClick={() => navigate("/dashboard")}>
+            <button
+              className="secondary-button"
+              onClick={() =>
+                navigate("/dashboard")
+              }
+            >
               ← Back to Dashboard
             </button>
-            <p className="card-label">Event created</p>
+
+            <p className="card-label">
+              Event Created
+            </p>
 
             <h2>{createdEvent.title}</h2>
 
-            <p className="muted">Event Code</p>
-            <h2>{createdEvent.event_code}</h2>
+            <p className="muted">
+              Event Code
+            </p>
 
-            <p className="muted" style={{ marginTop: "16px" }}>
+            <h2>
+              {createdEvent.event_code}
+            </h2>
+
+            <p
+              className="muted"
+              style={{ marginTop: "16px" }}
+            >
               Share this link
             </p>
 
@@ -100,7 +140,9 @@ function CreateEventPage() {
               className="button-primary"
               onClick={() => {
                 navigator.clipboard.writeText(
-                  `${window.location.origin}/join/${createdEvent.event_code}`);
+                  `${window.location.origin}/join/${createdEvent.event_code}`
+                );
+
                 alert("Link copied!");
               }}
             >
@@ -109,7 +151,7 @@ function CreateEventPage() {
 
             <div style={{ marginTop: "20px" }}>
               <QRCodeCanvas
-                value={`${window.location.origin}/join/${createdEvent.event_code}`} 
+                value={`${window.location.origin}/join/${createdEvent.event_code}`}
                 size={180}
                 bgColor="#ffffff"
                 fgColor="#000000"
@@ -119,7 +161,9 @@ function CreateEventPage() {
             <button
               className="button-primary"
               style={{ marginTop: "20px" }}
-              onClick={() => setCreatedEvent(null)}
+              onClick={() =>
+                setCreatedEvent(null)
+              }
             >
               Create Another Event
             </button>
