@@ -1,7 +1,6 @@
-import { apiRequest } from "./api";
 
 export async function getEventById(eventID) {
-  const response = await fetch  (`${import.meta.env.VITE_API_URL}/event/${eventID}/`);
+  const response = await fetch  (`${import.meta.env.VITE_API_URL}/events/${eventID}/`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch event");

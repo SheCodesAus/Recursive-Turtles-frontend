@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import ErrorAlert from "../components/shared/ErrorAlert";
 import { getEventByCode } from "../services/events";
 
@@ -7,13 +8,14 @@ import { getEventByCode } from "../services/events";
 import LivePollCard from "../components/polls/AttendeePollCard";
 import QuestionForm from "../components/questions/QuestionForm";
 import EmailCaptureForm from "../components/email/EmailCaptureForm";
+
 // Interactive attendee event components
 import Footer from "../components/shared/Footer";
 import QuestionList from "../components/questions/QuestionList";
 import GetSlidesCard from "../components/shared/GetSlidesCard";
 
 function AttendeeEventPage() {
-  // Get event ID from route parameters
+  // Get event code from route parameters
   const { eventCode } = useParams();
 
   // Store selected event data
@@ -22,22 +24,19 @@ function AttendeeEventPage() {
   // Track loading state while fetching event
   const [isLoading, setIsLoading] = useState(true);
 
+  // Store error messages
   const [error, setError] = useState("");
 
   // Load event information when page opens
   useEffect(() => {
     async function loadEvent() {
       try {
-        // Fetch all available events
-
         const data = await getEventByCode(eventCode);
 
-        setEvent(data); // Set the fetched event data into state
+        setEvent(data);
       } catch (err) {
-        // Log any fetch errors
         console.error(err);
       } finally {
-        // Stop loading spinner
         setIsLoading(false);
       }
     }
@@ -50,12 +49,13 @@ function AttendeeEventPage() {
     return (
       <main className="loading-screen">
         <div className="card loading-card">
-          {/* Animated loading spinner */}
           <div className="loading-spinner"></div>
 
           <h2>Loading event...</h2>
 
-          <p className="muted">Preparing your live workshop experience</p>
+          <p className="muted">
+            Preparing your live workshop experience
+          </p>
         </div>
       </main>
     );
@@ -66,13 +66,19 @@ function AttendeeEventPage() {
     return (
       <main className="page">
         <section className="card card-centered">
-          <p className="card-label">Event Error</p>
+          <p className="card-label">
+            Event Error
+          </p>
 
           <h2>Event not found</h2>
 
-          <p className="muted">This workshop event could not be loaded.</p>
+          <p className="muted">
+            This workshop event could not be loaded.
+          </p>
 
-          <p className="muted">Please check the event code and try again.</p>
+          <p className="muted">
+            Please check the event code and try again.
+          </p>
         </section>
       </main>
     );
@@ -80,55 +86,83 @@ function AttendeeEventPage() {
 
   return (
     <>
-      <ErrorAlert message={error} onClose={() => setError("")} />
+      <ErrorAlert
+        message={error}
+        onClose={() => setError("")}
+      />
 
       {/* Top application header */}
       <header className="app-header">
         <div className="app-header-inner">
+
           {/* Application branding */}
-          <div className="app-logo">Workshop Navigator</div>
+          <div className="app-logo">
+            Workshop Navigator
+          </div>
 
           {/* Event status and event code */}
           <div className="event-header-actions">
+
             {/* Live event indicator */}
-            <span className="live-badge">+ Live</span>
+            <span className="live-badge">
+              + Live
+            </span>
 
             {/* Display attendee event code */}
-            <span className="event-code-pill">{event.event_code}</span>
+            <span className="event-code-pill">
+              {event.event_code}
+            </span>
           </div>
         </div>
       </header>
 
       <main className="page event-page">
-        {/* Welcome section for attendees */}
 
+        {/* Welcome section */}
         <section className="event-welcome card">
-          <p className="card-label">Live Workshop Event</p>
+          <p className="card-label">
+            Live Workshop Event
+          </p>
 
           <h1>{event.title}</h1>
 
-          <p className="muted">You have successfully joined the workshop.</p>
+          <p className="muted">
+            You have successfully joined the workshop.
+          </p>
 
+          {/* Event actions preview */}
           <div className="event-actions-preview">
-            <div className="event-action-chip">Ask Questions</div>
 
-            <div className="event-action-chip">Participate in Polls</div>
+            <div className="event-action-chip">
+              Ask Questions
+            </div>
 
-            <div className="event-action-chip">Access Slides</div>
+            <div className="event-action-chip">
+              Participate in Polls
+            </div>
+
+            <div className="event-action-chip">
+              Access Slides
+            </div>
+
           </div>
         </section>
 
         {/* Live polling component */}
-        {/* <LivePollCard /> */}
+        <LivePollCard eventId={event.id} />
 
         {/* Question submission form */}
         <QuestionForm setError={setError} />
 
         {/* Display attendee questions */}
         <QuestionList />
+
+        {/* Workshop slides/resources */}
         <GetSlidesCard />
-      {/* Email capture for workshop slides */}
+
+        {/* Email capture for workshop slides */}
         <EmailCaptureForm />
+
       </main>
 
       {/* Global application footer */}
