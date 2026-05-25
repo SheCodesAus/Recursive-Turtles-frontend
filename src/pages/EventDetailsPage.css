@@ -1,0 +1,103 @@
+.event-details-page {
+  width: 90%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+.dashboard-header {
+  padding: 22px 18px;
+}
+
+.dashboard-header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.dashboard-title {
+  font-size: 1.8rem;
+  margin: 6px 0;
+  line-height: 1.2;
+}
+
+.dashboard-subtitle {
+  color: #b8b8d4;
+  font-size: 0.95rem;
+}
+
+.live-badge {
+  background: linear-gradient(135deg, #6d5dfc, #c951e7);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.overview-card {
+  margin-bottom: 20px;
+}
+
+.card-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.card-centered canvas {
+  border-radius: 18px;
+  background: white;
+  padding: 10px;
+}
+
+.stats-grid {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.dashboard-card {
+  margin-bottom: 20px;
+}
+
+.poll-title {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.question-list {
+  margin-top: 16px;
+}
+
+.question-card {
+  margin-bottom: 12px;
+}
+
+.secondary-button,
+.primary-button {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .dashboard-title {
+    font-size: 1.5rem;
+  }
+
+  .dashboard-header-inner {
+    align-items: flex-start;
+  }
+
+  .live-badge {
+    margin-top: 6px;
+  }
+}

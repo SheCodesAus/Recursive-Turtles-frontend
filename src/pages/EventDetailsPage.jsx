@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { QRCodeCanvas } from "qrcode.react";
+
 import { getEventById } from "../services/events";
+
 import "./DashboardPage.css";
+import "./EventDetailsPage.css";
+
 import Footer from "../components/shared/Footer";
+
 function EventDetailsPage() {
   const { eventId } = useParams();
+  const navigate = useNavigate();
 
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -33,21 +40,31 @@ function EventDetailsPage() {
   }
 
   if (!event) {
-  return (
-    <div className="dashboard-page">
-      <p>Event not found.</p>
-    </div>
-  );
-}
+    return (
+      <div className="dashboard-page">
+        <p>Event not found.</p>
+
+        <button
+          className="secondary-button"
+          onClick={() => navigate("/dashboard")}
+        >
+          Back to Dashboard
+        </button>
+      </div>
+    );
+  }
+
   return (
     <>
       <header className="dashboard-header">
         <div className="dashboard-header-inner">
           <div>
-            <p className="dashboard-label">Workshop Navigator</p>
+            <p className="dashboard-label">
+              Workshop Navigator
+            </p>
 
             <h1 className="dashboard-title">
-              {event?.title || "Loading..."}
+              {event.title}
             </h1>
 
             <p className="dashboard-subtitle">
@@ -55,27 +72,58 @@ function EventDetailsPage() {
             </p>
           </div>
 
-          <div className="live-badge">LIVE</div>
+          <div className="live-badge">
+            LIVE
+          </div>
         </div>
       </header>
 
       <main className="dashboard-page">
+
+        {/* EVENT OVERVIEW */}
         <section className="dashboard-card overview-card">
           <div>
-            <p className="card-label">Event Code</p>
+            <p className="card-label">
+              Event Code
+            </p>
 
             <h2 className="event-code-text">
-              {event?.event_code || "Loading..."}
+              {event.event_code}
             </h2>
           </div>
 
           <p className="event-time">
-            {event?.created_at
+            {event.created_at
               ? new Date(event.created_at).toLocaleString()
               : "Workshop event"}
           </p>
         </section>
 
+        {/* QR CODE */}
+        <section className="dashboard-card card-centered">
+          <p className="card-label">
+            Workshop Join QR
+          </p>
+
+          <div style={{ marginTop: "16px" }}>
+            <QRCodeCanvas
+              value={`${window.location.origin}/join/${event.event_code}`}
+              size={180}
+              bgColor="#ffffff"
+              fgColor="#000000"
+            />
+          </div>
+
+          <p
+            className="muted"
+            style={{ marginTop: "16px" }}
+          >
+            Share this QR code for attendees
+            to join the workshop
+          </p>
+        </section>
+
+        {/* EVENT STATS */}
         <section className="stats-grid">
           <div className="stat-card">
             <h2>42</h2>
@@ -93,16 +141,35 @@ function EventDetailsPage() {
           </div>
         </section>
 
+        {/* FACILITATOR ACTIONS */}
         <section className="dashboard-card">
-          <p className="card-label">Facilitator Action</p>
+          <p className="card-label">
+            Facilitator Actions
+          </p>
 
-          <button className="primary-button">
-            + Create Live Poll
-          </button>
+          <div className="action-buttons">
+            <button
+              className="primary-button"
+            >
+              + Create Live Poll
+            </button>
+
+            <button
+              className="secondary-button"
+              onClick={() =>
+                navigate(`/results/${eventId}`)
+              }
+            >
+              View Results
+            </button>
+          </div>
         </section>
 
+        {/* ACTIVE POLL */}
         <section className="dashboard-card">
-          <p className="card-label">Active Poll</p>
+          <p className="card-label">
+            Active Poll
+          </p>
 
           <h3 className="poll-title">
             How valuable is today’s workshop?
@@ -120,12 +187,16 @@ function EventDetailsPage() {
           </p>
         </section>
 
+        {/* RECENT QUESTIONS */}
         <section className="dashboard-card">
-          <p className="card-label">Recent Questions</p>
+          <p className="card-label">
+            Recent Questions
+          </p>
 
           <div className="question-list">
             <div className="question-card">
-              Can you share more examples of real-world leadership challenges?
+              Can you share more examples
+              of real-world leadership challenges?
             </div>
 
             <div className="question-card">
@@ -134,12 +205,15 @@ function EventDetailsPage() {
           </div>
         </section>
 
+        {/* EXPORT */}
         <section className="dashboard-card">
           <button className="secondary-button">
             Export Results CSV
           </button>
         </section>
+
       </main>
+
       <Footer />
     </>
   );
