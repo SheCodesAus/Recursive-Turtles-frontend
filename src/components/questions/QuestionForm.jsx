@@ -1,20 +1,32 @@
 import { useState } from "react";
+import { postQuestion } from "../../services/questions";
 
-function QuestionForm({ setError }) {
+function QuestionForm({ eventId, onSuccess }) {
   const [question, setQuestion] = useState("");
   const [anonymous, setAnonymous] = useState(true);
   const [message, setMessage] = useState("");
+  const [err, setErr] = useState("");
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!question.trim()) {
-      setError("Please enter your question.");
+      setErr("Please enter your question.");
       return;
     }
 
-    console.log({ question, anonymous });
-    setMessage("Your question has been submitted.");
+    try {
+      await postQuestion(eventId, { text: question, anonymous });
+      setMessage("Your question has been submitted.");
+      setAnonymous(true);
+      if (onSuccess) {
+        onSuccess();
+      }
+    } catch (err) {
+      console.error(err);
+      setErr("Failed to submit question. Please try again.");
+      return ;
+    }
     setQuestion("");
   }
 
@@ -24,6 +36,7 @@ function QuestionForm({ setError }) {
       <h2>Ask a Question</h2>
 
       <form onSubmit={handleSubmit}>
+        {err && <p className="error-message">{err}</p>}
         <textarea
           className="textarea"
           value={question}
@@ -49,5 +62,4 @@ function QuestionForm({ setError }) {
     </section>
   );
 }
-
 export default QuestionForm;

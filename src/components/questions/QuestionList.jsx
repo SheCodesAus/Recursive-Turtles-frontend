@@ -1,19 +1,24 @@
-function QuestionList() {
-  const questions = [
-    {
-      id: 1,
-      text: "How do you improve Gen Z engagement?",
-      upvotes: 4,
-      anonymous: true,
-    },
-    {
-      id: 2,
-      text: "What leadership styles work best?",
-      upvotes: 2,
-      anonymous: false,
-    },
-  ];
+import { useState } from "react";
+import { getQuestions } from "../../services/questions";
+import { useEffect } from "react";
 
+function QuestionList({ eventId , refresh }) {
+  const [questions, setQuestions] = useState([]);
+
+
+  useEffect(() => {
+    async function fetchQuestions() {
+      try {
+        const data = await getQuestions(eventId);
+        setQuestions(data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    fetchQuestions();
+  }, [eventId, refresh]);
+  
   return (
     <section className="card">
       <p className="card-label">Live questions</p>
@@ -22,7 +27,7 @@ function QuestionList() {
       <div className="stack">
         {questions.map((question) => (
           <div key={question.id} className="question-item">
-            <p>{question.text}</p>
+            <p>{question.question_text}</p>
 
             <div className="question-meta">
               <span>{question.anonymous ? "Anonymous" : "Named User"}</span>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { postCreateEvent } from "../services/events";
 import { useNavigate } from "react-router-dom";
 import { QRCodeCanvas } from "qrcode.react";
+import LogoutButton from "../components/shared/LogoutButton";
 import Footer from "../components/shared/Footer";
 
 function CreateEventPage() {
@@ -38,12 +39,19 @@ function CreateEventPage() {
 
   return (
     <>
-      <header className="app-header">
+    <header className="app-header">
         <div className="app-header-inner">
-          <div className="app-logo">Workshop Navigator</div>
+          {/* Application branding */}
+          <div className="app-logo">
+            Workshop Navigator
+          </div>
+
+          {/* Organiser account actions */}
+          <div className="header-actions">
+            <LogoutButton />
+          </div>
         </div>
       </header>
-
       <main className="page">
         <div className="page-header">
           <h1 className="page-title">Create Event</h1>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "../components/shared/Footer";
+import { useNavigate } from "react-router-dom";
+import LogoutButton from "../components/shared/LogoutButton";
 
 import {
   getPolls,
@@ -28,6 +30,8 @@ function ResultsPage() {
   const [questions, setQuestions] = useState([]);
   const [emailCount, setEmailCount] = useState(0);
   const [averageRating, setAverageRating] = useState(0);
+    // React Router navigation hook
+  const navigate = useNavigate();
 
   // Fetch event analytics data when page loads
   useEffect(() => {
@@ -125,14 +129,20 @@ const pollResponseCount = pollResults.reduce(
         <div className="app-header-inner">
 
           {/* Application branding */}
-          <div className="app-logo">
+          <div className="app-logo"
+          onClick={()=> navigate("/")}>
             Workshop Navigator
           </div>
 
-          {/* Current page label */}
+          {/* Organiser account actions */}
+          <div className="header-actions">
+            <LogoutButton />
+          </div>
+
+          {/* Current page label
           <div className="event-code">
             Results
-          </div>
+          </div> */}
 
         </div>
       </header>

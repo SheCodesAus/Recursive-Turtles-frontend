@@ -5,6 +5,7 @@ import CreatePoll from "../components/polls/CreatePoll";
 import QueuedPolls from "../components/polls/QueuedPolls";
 import LivePollCard from "../components/polls/LivePollCard";
 import Footer from "../components/shared/Footer";
+import { useNavigate } from "react-router-dom";  
 
 // Shared components
 import LogoutButton from "../components/shared/LogoutButton";
@@ -14,6 +15,8 @@ import RecentQuestions from "../components/questions/RecentQuestions";
 import ResultsOverview from "../components/questions/ResultsOverview";
 
 function FacilitatorEventDetailsPage() {
+
+  const navigate = useNavigate();
 
   // Track currently active navigation tab
   const [activeTab, setActiveTab] = useState("overview");
@@ -92,6 +95,20 @@ function FacilitatorEventDetailsPage() {
 
   return (
   <>
+  <header className="app-header">
+        <div className="app-header-inner">
+          {/* Application branding */}
+          <div className="app-logo" 
+          onClick={()=> navigate("/")}>
+            Workshop Navigator
+          </div>
+
+          {/* Organiser account actions */}
+          <div className="header-actions">
+            <LogoutButton />
+          </div>
+        </div>
+      </header>
     <main className="page event-details-page">
 
       {/* Navigation button back to facilitator dashboard */}

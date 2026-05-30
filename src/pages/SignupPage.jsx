@@ -68,7 +68,8 @@ function SignupPage() {
         <div className="app-header-inner">
 
           {/* Application branding */}
-          <div className="app-logo">
+          <div className="app-logo"
+          onClick={()=> navigate("/")}>
             Workshop Navigator
           </div>
 

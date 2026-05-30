@@ -4,7 +4,8 @@ function LogoutButton() {
   const navigate = useNavigate();
 
   function handleLogout() {
-    // later: clear auth token/event here
+    window.localStorage.removeItem("access");
+    console.log("Access token removed from localStorage");
     navigate("/");
   }
 

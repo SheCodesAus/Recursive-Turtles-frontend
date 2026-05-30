@@ -56,7 +56,8 @@ function LoginPage() {
         <div className="app-header-inner">
 
           {/* Application branding */}
-          <div className="app-logo">
+          <div className="app-logo"
+          onClick={()=> navigate("/")}>
             Workshop Navigator
           </div>
 
@@ -69,7 +70,7 @@ function LoginPage() {
         <div className="page-header">
 
           <h1 className="page-title">
-            Organiser Login
+            Facilitatir Login
           </h1>
 
           <p className="page-subtitle">

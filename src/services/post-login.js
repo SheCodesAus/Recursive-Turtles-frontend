@@ -1,7 +1,7 @@
-export async function postLogin(email,password) {
-    const url = `${import.meta.env.VITE_API_URL}/login/`;
+import { apiRequest } from "./api";
 
-    const response = await fetch(url, {
+export async function postLogin(email,password) {
+    return apiRequest(`/login/`, {
         method: "POST",
         headers:{
             "Content-Type": "application/json",
@@ -10,22 +10,5 @@ export async function postLogin(email,password) {
             "email": email,
             "password": password,
         }),
-    });
-
-    
-    if(!response.ok){
-        const fallbackError = "Error trying to login";
-
-        const data = await response.json().catch(() =>{
-            throw new Error(fallbackError);
-        });
-
-        const errorMessage = data?.detail ?? fallbackError;
-        throw new Error(errorMessage);
-    }
-
-    return await response.json();
-    
+    });   
 }
-
-// export default postLogin;

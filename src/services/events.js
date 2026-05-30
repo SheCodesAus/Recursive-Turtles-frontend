@@ -1,39 +1,18 @@
 import { apiRequest } from "./api";
 
 export async function getEventById(eventID) {
-  const response = await fetch  (`${import.meta.env.VITE_API_URL}/event/${eventID}/`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch event");
-  }
-
-  return response.json();
+  return apiRequest(`/events/${eventID}/`);
 }
 
 export async function getEventByCode(eventCode) {
-  const response = await fetch  (`${import.meta.env.VITE_API_URL}/events/join/${eventCode}/`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch event");
-  }
-
-  return response.json();
+  return apiRequest(`/events/join/${eventCode}/`);
 }
 
 export async function loginFacilitator(credentials) {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/login/`, {
+  return apiRequest(`/login/`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(credentials),
   });
-
-  if (!response.ok) {
-    throw new Error("Login failed");
-  }
-
-  return response.json();
 }
 
 export async function postCreateEvent(data) {
@@ -42,7 +21,8 @@ export async function postCreateEvent(data) {
   if (!accessToken) {
     throw new Error("No access token found. Please log in.");
   }
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/events/`, {
+  
+  return apiRequest(`/events/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -50,12 +30,6 @@ export async function postCreateEvent(data) {
     },
     body: JSON.stringify(data),
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to create event");
-  }
-
-  return response.json();
 }
 
 export async function getEventsPerFacilitator() {
@@ -64,17 +38,11 @@ export async function getEventsPerFacilitator() {
   if (!accessToken) {
     throw new Error("No access token found. Please log in.");
   }
-
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/events/`, {
+  return apiRequest(`/events/`, {
     method: "GET",
     headers: {
       "Authorization": `Bearer ${accessToken}`,
     },
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch events");
-  }
-
-  return response.json();
 }
+

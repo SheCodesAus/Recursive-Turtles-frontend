@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ErrorAlert from "../components/shared/ErrorAlert";
 import { getEventByCode } from "../services/events";
 
 // Interactive attendee session components
@@ -10,9 +9,10 @@ import EmailCaptureForm from "../components/email/EmailCaptureForm";
 // Interactive attendee event components
 import Footer from "../components/shared/Footer";
 import QuestionList from "../components/questions/QuestionList";
-import GetSlidesCard from "../components/shared/GetSlidesCard";
+import AttendeePollCard from "../components/polls/AttendeePollCard";
 
 function AttendeeEventPage() {
+  const [refresh, setRefresh] = useState(false);
   // Get event ID from route parameters
   const { eventCode } = useParams();
 
@@ -22,7 +22,12 @@ function AttendeeEventPage() {
   // Track loading state while fetching event
   const [isLoading, setIsLoading] = useState(true);
 
-  const [error, setError] = useState("");
+  const [err, setErr] = useState("");
+
+  const handleQuestionSubmitted = () => {
+    // Trigger a refresh of the question list after a new question is submitted
+    setRefresh((prev) => !prev);
+  };
 
   // Load event information when page opens
   useEffect(() => {
@@ -71,7 +76,6 @@ function AttendeeEventPage() {
           <h2>Event not found</h2>
 
           <p className="muted">This workshop event could not be loaded.</p>
-
           <p className="muted">Please check the event code and try again.</p>
         </section>
       </main>
@@ -80,8 +84,6 @@ function AttendeeEventPage() {
 
   return (
     <>
-      <ErrorAlert message={error} onClose={() => setError("")} />
-
       {/* Top application header */}
       <header className="app-header">
         <div className="app-header-inner">
@@ -101,13 +103,11 @@ function AttendeeEventPage() {
 
       <main className="page event-page">
         {/* Welcome section for attendees */}
-
+        <h1>Live Workshop Event</h1>
         <section className="event-welcome card">
-          <p className="card-label">Live Workshop Event</p>
-
-          <h1>{event.title}</h1>
 
           <p className="muted">You have successfully joined the workshop.</p>
+          <h1>{event.title}</h1>
 
           <div className="event-actions-preview">
             <div className="event-action-chip">Ask Questions</div>
@@ -118,17 +118,21 @@ function AttendeeEventPage() {
           </div>
         </section>
 
-        {/* Live polling component */}
-        {/* <LivePollCard /> */}
+        {/* Live polling component
+        <LivePollCard /> */}
+
+        {/* Attendee Poll Card */}
+        <AttendeePollCard eventId={event.id} />
 
         {/* Question submission form */}
-        <QuestionForm setError={setError} />
+        <QuestionForm eventId={event.id} onSuccess={handleQuestionSubmitted} />
+        {err && <p className="error-message">{err}</p>}
 
         {/* Display attendee questions */}
-        <QuestionList />
-        <GetSlidesCard />
+        <QuestionList eventId={event.id} refresh={refresh} />
+
       {/* Email capture for workshop slides */}
-        <EmailCaptureForm />
+        <EmailCaptureForm eventId={event.id}  />
       </main>
 
       {/* Global application footer */}
