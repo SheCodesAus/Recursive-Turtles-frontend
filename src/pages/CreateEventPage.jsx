@@ -73,7 +73,7 @@ function CreateEventPage() {
                 placeholder="e.g. Gen Z Leadership Workshop"
               />
 
-              <button className="button-primary" type="submit">
+              <button className="button-primary" type="submit" disabled={isLoading}>
                 {isLoading ? "Creating..." : "Create Event"}
               </button>
 
