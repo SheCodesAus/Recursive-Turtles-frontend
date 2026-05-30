@@ -15,18 +15,18 @@ export async function loginFacilitator(credentials) {
   });
 }
 
-export async function postCreateEvent(data) {
+export async function createEvent(data) {
   const accessToken = window.localStorage.getItem("access");
 
   if (!accessToken) {
     throw new Error("No access token found. Please log in.");
   }
-  
+
   return apiRequest(`/events/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(data),
   });
@@ -41,8 +41,7 @@ export async function getEventsPerFacilitator() {
   return apiRequest(`/events/`, {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   });
 }
-

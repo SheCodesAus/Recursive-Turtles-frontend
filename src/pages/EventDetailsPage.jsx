@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { getEventById } from "../services/events";
 import "./DashboardPage.css";
 import Footer from "../components/shared/Footer";
+import { QRCodeCanvas } from "qrcode.react";
+
 function EventDetailsPage() {
   const { eventId } = useParams();
 
@@ -33,12 +35,12 @@ function EventDetailsPage() {
   }
 
   if (!event) {
-  return (
-    <div className="dashboard-page">
-      <p>Event not found.</p>
-    </div>
-  );
-}
+    return (
+      <div className="dashboard-page">
+        <p>Event not found.</p>
+      </div>
+    );
+  }
   return (
     <>
       <header className="dashboard-header">
@@ -46,13 +48,9 @@ function EventDetailsPage() {
           <div>
             <p className="dashboard-label">Workshop Navigator</p>
 
-            <h1 className="dashboard-title">
-              {event?.title || "Loading..."}
-            </h1>
+            <h1 className="dashboard-title">{event?.title || "Loading..."}</h1>
 
-            <p className="dashboard-subtitle">
-              Current live workshop event
-            </p>
+            <p className="dashboard-subtitle">Current live workshop event</p>
           </div>
 
           <div className="live-badge">LIVE</div>
@@ -60,6 +58,24 @@ function EventDetailsPage() {
       </header>
 
       <main className="dashboard-page">
+        {/* QR CODE */}
+        <section className="dashboard-card card-centered">
+          <p className="card-label">Workshop Join QR</p>
+
+          <div style={{ marginTop: "16px" }}>
+            <QRCodeCanvas
+              value={`${window.location.origin}/join/${event.event_code}`}
+              size={180}
+              bgColor="#ffffff"
+              fgColor="#000000"
+            />
+          </div>
+
+          <p className="muted" style={{ marginTop: "16px" }}>
+            Share this QR code for attendees to join the workshop
+          </p>
+        </section>
+
         <section className="dashboard-card overview-card">
           <div>
             <p className="card-label">Event Code</p>
@@ -96,28 +112,19 @@ function EventDetailsPage() {
         <section className="dashboard-card">
           <p className="card-label">Facilitator Action</p>
 
-          <button className="primary-button">
-            + Create Live Poll
-          </button>
+          <button className="primary-button">+ Create Live Poll</button>
         </section>
 
         <section className="dashboard-card">
           <p className="card-label">Active Poll</p>
 
-          <h3 className="poll-title">
-            How valuable is today’s workshop?
-          </h3>
+          <h3 className="poll-title">How valuable is today’s workshop?</h3>
 
           <div className="poll-bar">
-            <div
-              className="poll-fill"
-              style={{ width: "82%" }}
-            ></div>
+            <div className="poll-fill" style={{ width: "82%" }}></div>
           </div>
 
-          <p className="poll-result">
-            82% Positive Feedback
-          </p>
+          <p className="poll-result">82% Positive Feedback</p>
         </section>
 
         <section className="dashboard-card">
@@ -135,9 +142,7 @@ function EventDetailsPage() {
         </section>
 
         <section className="dashboard-card">
-          <button className="secondary-button">
-            Export Results CSV
-          </button>
+          <button className="secondary-button">Export Results CSV</button>
         </section>
       </main>
       <Footer />

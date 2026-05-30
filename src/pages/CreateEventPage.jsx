@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { postCreateEvent } from "../services/events";
+import { createEvent } from "../services/events";
 import { useNavigate } from "react-router-dom";
 import { QRCodeCanvas } from "qrcode.react";
 import LogoutButton from "../components/shared/LogoutButton";
@@ -7,7 +7,7 @@ import Footer from "../components/shared/Footer";
 
 function CreateEventPage() {
   const navigate = useNavigate();
-  const [err,setErr] = useState("");
+  const [err, setErr] = useState("");
 
   const [title, setTitle] = useState("");
   const [createdEvent, setCreatedEvent] = useState(null);
@@ -24,27 +24,24 @@ function CreateEventPage() {
     try {
       setIsLoading(true);
 
-      const response = await postCreateEvent({ title });
+      const response = await createEvent({ title });
       setCreatedEvent(response);
       setTitle("");
       setErr("");
     } catch (err) {
       console.error(err);
       setErr("We couldn't create the event. Please try again.");
-    } finally {      
+    } finally {
       setIsLoading(false);
     }
-
   };
 
   return (
     <>
-    <header className="app-header">
+      <header className="app-header">
         <div className="app-header-inner">
           {/* Application branding */}
-          <div className="app-logo">
-            Workshop Navigator
-          </div>
+          <div className="app-logo">Workshop Navigator</div>
 
           {/* Organiser account actions */}
           <div className="header-actions">
@@ -62,9 +59,9 @@ function CreateEventPage() {
           <section className="card">
             <h2>Event Details</h2>
 
-          <form onSubmit={handleSubmit}>
-            {err && <p className="error-message">{err}</p>}
-            <label className="form-label">Event Title</label>
+            <form onSubmit={handleSubmit}>
+              {err && <p className="error-message">{err}</p>}
+              <label className="form-label">Event Title</label>
 
               <input
                 className="input"
@@ -73,11 +70,19 @@ function CreateEventPage() {
                 placeholder="e.g. Gen Z Leadership Workshop"
               />
 
-              <button className="button-primary" type="submit" disabled={isLoading}>
+              <button
+                className="button-primary"
+                type="submit"
+                disabled={isLoading}
+              >
                 {isLoading ? "Creating..." : "Create Event"}
               </button>
 
-              <button className="secondary-button" type="button" onClick={() => navigate("/dashboard")}>
+              <button
+                className="secondary-button"
+                type="button"
+                onClick={() => navigate("/dashboard")}
+              >
                 Back to Dashboard
               </button>
             </form>
@@ -86,7 +91,10 @@ function CreateEventPage() {
 
         {createdEvent && (
           <section className="card card-centered">
-            <button className="secondary-button" onClick={() => navigate("/dashboard")}>
+            <button
+              className="secondary-button"
+              onClick={() => navigate("/dashboard")}
+            >
               ← Back to Dashboard
             </button>
             <p className="card-label">Event created</p>
@@ -108,7 +116,8 @@ function CreateEventPage() {
               className="button-primary"
               onClick={() => {
                 navigator.clipboard.writeText(
-                  `${window.location.origin}/join/${createdEvent.event_code}`);
+                  `${window.location.origin}/join/${createdEvent.event_code}`,
+                );
                 alert("Link copied!");
               }}
             >
@@ -117,7 +126,7 @@ function CreateEventPage() {
 
             <div style={{ marginTop: "20px" }}>
               <QRCodeCanvas
-                value={`${window.location.origin}/join/${createdEvent.event_code}`} 
+                value={`${window.location.origin}/join/${createdEvent.event_code}`}
                 size={180}
                 bgColor="#ffffff"
                 fgColor="#000000"
