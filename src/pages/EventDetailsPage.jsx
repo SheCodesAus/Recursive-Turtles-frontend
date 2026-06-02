@@ -4,10 +4,12 @@ import { getEventById } from "../services/events";
 import "./DashboardPage.css";
 import Footer from "../components/shared/Footer";
 import { QRCodeCanvas } from "qrcode.react";
+import { getPollsByEvent, createPoll } from "../services/polls";
 
 function EventDetailsPage() {
   const { eventId } = useParams();
-
+  const [polls, setPolls] = useState([]);
+  const [newPollQuestion, setNewPollQuestion] = useState("");
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,6 +18,8 @@ function EventDetailsPage() {
       try {
         const data = await getEventById(eventId);
         setEvent(data);
+        const pollData = await getPollsByEvent(eventId);
+        setPolls(pollData);
       } catch (error) {
         console.error("Error fetching event:", error);
       } finally {
@@ -41,6 +45,24 @@ function EventDetailsPage() {
       </div>
     );
   }
+
+  async function handleCreatePoll(e) {
+    e.preventDefault();
+
+    if (!newPollQuestion.trim()) return;
+
+    try {
+      const createdPoll = await createPoll(eventId, {
+        question: newPollQuestion,
+      });
+
+      setPolls([...polls, createdPoll]);
+      setNewPollQuestion("");
+    } catch (error) {
+      console.error("Error creating poll:", error);
+    }
+  }
+
   return (
     <>
       <header className="dashboard-header">
@@ -116,16 +138,45 @@ function EventDetailsPage() {
         </section>
 
         <section className="dashboard-card">
-          <p className="card-label">Active Poll</p>
+          <p className="card-label">Create Poll</p>
 
-          <h3 className="poll-title">How valuable is today’s workshop?</h3>
+          <form onSubmit={handleCreatePoll}>
+            <input
+              type="text"
+              placeholder="Enter poll question"
+              value={newPollQuestion}
+              onChange={(e) => setNewPollQuestion(e.target.value)}
+              className="poll-input"
+            />
 
-          <div className="poll-bar">
-            <div className="poll-fill" style={{ width: "82%" }}></div>
-          </div>
-
-          <p className="poll-result">82% Positive Feedback</p>
+            <button
+              type="submit"
+              className="primary-button"
+              style={{ marginTop: "12px" }}
+            >
+              Create Poll
+            </button>
+          </form>
         </section>
+
+        {/* ACTIVE POLLS */}
+        <section className="dashboard-card">
+          <p className="card-label">Active Polls</p>
+
+          {polls.length === 0 ? (
+            <p className="muted">No polls created yet.</p>
+          ) : (
+            polls.map((poll) => (
+              <div key={poll.id} className="question-card">
+                <h3 className="poll-title">{poll.question}</h3>
+
+                <p className="muted">
+                  {poll.is_active ? "Live Poll" : "Closed Poll"}
+                </p>
+              </div>
+            ))
+          )}
+          </section>
 
         <section className="dashboard-card">
           <p className="card-label">Recent Questions</p>

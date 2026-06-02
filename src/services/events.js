@@ -1,7 +1,7 @@
 import { apiRequest } from "./api";
 
-export async function getEventById(eventID) {
-  return apiRequest(`/events/${eventID}/`);
+export async function getEventById(eventId) {
+  return apiRequest(`/events/${eventId}/`);
 }
 
 export async function getEventByCode(eventCode) {
